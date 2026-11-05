@@ -259,28 +259,81 @@ const mahesh = {
 
 <div align="center">
 
-```
-                    🎓 EDUCATION TIMELINE
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Orbitron&weight=700&size=16&pause=99999&color=BD93F9&center=true&vCenter=true&width=520&height=35&lines=🎓+Academic+Journey+%7C+2020+to+2025)](https://git.io/typing-svg)
 
-  2020  ◈━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◈
-        📕  SSC  |  Madhuban Maharaj Highschool, Nanded
-            Score: 77.00%  |  March 2020
-  
-  2022  ◈━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◈
-        📗  HSC  |  Shivaji Vidhyalay Cidco, Nanded
-            Score: 54.33%  |  February 2022
+<br/>
 
-  2025  ◈━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◈
-        📘  B.Sc. Computer Science
-            Vishwabharti Mahavidyalay, Nanded
-            Score: 73.25%  |  May 2025  🎓
+<table>
+<tr>
+<td align="center" width="130">
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-```
+![2020](https://img.shields.io/badge/📕_SSC-March_2020-FF79C6?style=for-the-badge&labelColor=1a1a2e)
+
+</td>
+<td>
+
+**SSC — Secondary School Certificate**<br/>
+🏫 Madhuban Maharaj Highschool, Nanded
+
+![Score](https://img.shields.io/badge/Score-77.00%25-50FA7B?style=flat-square&labelColor=1a1a2e&logo=checkmarx&logoColor=50FA7B)
+![Board](https://img.shields.io/badge/Maharashtra_Board-SSC-BD93F9?style=flat-square&labelColor=1a1a2e)
+![Year](https://img.shields.io/badge/Passed-March_2020-FFB86C?style=flat-square&labelColor=1a1a2e)
+
+`▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░` **77%**
+
+</td>
+</tr>
+<tr><td colspan="2" align="center">
+
+![divider](https://img.shields.io/badge/--6272a4?style=flat-square&labelColor=1a1a2e)
+
+</td></tr>
+<tr>
+<td align="center" width="130">
+
+![2022](https://img.shields.io/badge/📗_HSC-Feb_2022-FF79C6?style=for-the-badge&labelColor=1a1a2e)
+
+</td>
+<td>
+
+**HSC — Higher Secondary Certificate**<br/>
+🏫 Shivaji Vidhyalay Cidco, Nanded
+
+![Score](https://img.shields.io/badge/Score-54.33%25-FFB86C?style=flat-square&labelColor=1a1a2e&logo=checkmarx&logoColor=FFB86C)
+![Board](https://img.shields.io/badge/Maharashtra_Board-HSC-BD93F9?style=flat-square&labelColor=1a1a2e)
+![Year](https://img.shields.io/badge/Passed-February_2022-FF79C6?style=flat-square&labelColor=1a1a2e)
+
+`▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░░` **54%**
+
+</td>
+</tr>
+<tr><td colspan="2" align="center">
+
+![divider](https://img.shields.io/badge/--6272a4?style=flat-square&labelColor=1a1a2e)
+
+</td></tr>
+<tr>
+<td align="center" width="130">
+
+![2025](https://img.shields.io/badge/📘_B.Sc-May_2025-FF79C6?style=for-the-badge&labelColor=1a1a2e)
+
+</td>
+<td>
+
+**B.Sc. Computer Science** 🎓<br/>
+🏫 Vishwabharti Mahavidyalay, Nanded
+
+![Score](https://img.shields.io/badge/Score-73.25%25-50FA7B?style=flat-square&labelColor=1a1a2e&logo=checkmarx&logoColor=50FA7B)
+![Degree](https://img.shields.io/badge/Degree-B.Sc._CS-BD93F9?style=flat-square&labelColor=1a1a2e&logo=python&logoColor=white)
+![Status](https://img.shields.io/badge/Status-Completed_✅-50FA7B?style=flat-square&labelColor=1a1a2e)
+
+`▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░` **73%**
+
+</td>
+</tr>
+</table>
 
 </div>
-
 ---
 
 ## 💪 Key Strengths
