@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mahesh Gomaskar | Full Stack Developer</title>
+  
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  
+  <style>
+    :root {
+      --bg: #05070f;
+      --card-bg: rgba(13, 17, 32, 0.7);
+      --card-border: rgba(189, 147, 249, 0.15);
+      --primary: #bd93f9;
+      --secondary: #ff79c6;
+      --accent: #00ffff;
+      --green: #50fa7b;
+      --orange: #ffb86c;
+      --text: #f8f8f2;
+      --text-muted: #8b9bb4;
+      --font-main: 'Plus Jakarta Sans', sans-serif;
+      --font-code: 'Fira Code', monospace;
+      --font-tech: 'Orbitron', sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      cursor: none; /* Hide default cursor for custom cursor */
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-main);
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+      selection-background-color: var(--secondary);
+    }
+
+    ::selection {
+      background: var(--primary);
+      color: #000;
+    }
+
+    /* CUSTOM DYNAMIC CURSOR */
+    .cursor-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.05s ease-out;
+      box-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent);
+    }
+
+    .cursor-outline {
+      width: 36px;
+      height: 36px;
+      border: 2px solid var(--primary);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9998;
+      transition: width 0.2s, height 0.2s, transform 0.15s ease-out, border-color 0.2s;
+      transform: translate(-50%, -50%);
+    }
+
+    .cursor-trail {
+      position: fixed;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--secondary);
+      pointer-events: none;
+      z-index: 9997;
+      opacity: 0.7;
+      animation: fadeTrail 0.5s linear forwards;
+    }
+
+    @keyframes fadeTrail {
+      0% { transform: scale(1); opacity: 0.8; }
+      100% { transform: scale(0.1); opacity: 0; }
+    }
+
+    .hovered-cursor .cursor-outline {
+      width: 60px;
+      height: 60px;
+      border-color: var(--accent);
+      background: rgba(0, 255, 255, 0.08);
+      backdrop-filter: blur(2px);
+    }
+
+    /* CANVAS PARTICLES BACKGROUND */
+    #bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* LAYOUT CONTAINER */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* GLOWING ORB EFFECTS */
+    .glow-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
+      opacity: 0.35;
+      z-index: 0;
+    }
+    .orb-1 { width: 450px; height: 450px; background: var(--primary); top: 5%; left: -10%; }
+    .orb-2 { width: 500px; height: 500px; background: var(--secondary); top: 35%; right: -15%; }
+    .orb-3 { width: 400px; height: 400px; background: var(--accent); bottom: 10%; left: 20%; }
+
+    /* HEADER HERO */
+    .hero-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 28px;
+      padding: 50px 40px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      margin-bottom: 40px;
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.3fr 0.9fr;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      border-radius: 30px;
+      background: rgba(80, 250, 123, 0.1);
+      border: 1px solid rgba(80, 250, 123, 0.3);
+      color: var(--green);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 20px;
+    }
+
+    .hero-badge .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 10px var(--green);
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.4); }
+    }
+
+    .hero-title {
+      font-family: var(--font-tech);
+      font-size: 52px;
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 15px;
+      background: linear-gradient(135deg, #ffffff 30%, var(--primary) 70%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 30px rgba(189, 147, 249, 0.3);
+    }
+
+    .typing-box {
+      font-family: var(--font-code);
+      font-size: 20px;
+      color: var(--accent);
+      min-height: 32px;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .cursor-blink {
+      display: inline-block;
+      width: 3px;
+      height: 22px;
+      background: var(--accent);
+      animation: blink 0.8s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .hero-desc {
+      color: var(--text-muted);
+      font-size: 16px;
+      line-height: 1.7;
+      margin-bottom: 30px;
+    }
+
+    .cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .btn-glow {
+      padding: 14px 28px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 0.5px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #0b0c16;
+      box-shadow: 0 10px 25px rgba(189, 147, 249, 0.4);
+    }
+    .btn-primary:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 15px 35px rgba(255, 121, 198, 0.6);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(10px);
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.09);
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(0, 255, 255, 0.25);
+    }
+
+    /* CODE TERMINAL CARD (RIGHT OF HERO) */
+    .terminal-card {
+      background: #080a14;
+      border: 1px solid rgba(189, 147, 249, 0.25);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.7), 0 0 30px rgba(189, 147, 249, 0.15);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .terminal-card:hover {
+      transform: translateY(-5px) rotate(0.5deg);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 45px rgba(0, 255, 255, 0.25);
+      border-color: var(--accent);
+    }
+
+    .terminal-header {
+      background: rgba(255,255,255,0.03);
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .term-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    .term-red { background: #ff5555; }
+    .term-yellow { background: #f1fa8c; }
+    .term-green { background: #50fa7b; }
+    .term-title {
+      font-family: var(--font-code);
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-left: auto;
+    }
+
+    .terminal-body {
+      padding: 22px;
+      font-family: var(--font-code);
+      font-size: 13.5px;
+      line-height: 1.8;
+      color: #f8f8f2;
+    }
+    .code-var { color: var(--secondary); }
+    .code-prop { color: var(--accent); }
+    .code-str { color: #f1fa8c; }
+    .code-bool { color: var(--orange); }
+    .code-comment { color: #6272a4; font-style: italic; }
+
+    /* SECTION TITLES */
+    .section-title-wrap {
+      text-align: center;
+      margin: 60px 0 35px 0;
+      position: relative;
+    }
+    .section-tag {
+      font-family: var(--font-code);
+      color: var(--accent);
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .section-title {
+      font-family: var(--font-tech);
+      font-size: 34px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #fff, var(--primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+
+    /* TECH STACK GRID INTERACTIVE */
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .tech-pill {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 20px 15px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tech-pill::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transition: left 0.5s;
+    }
+
+    .tech-pill:hover::before {
+      left: 100%;
+    }
+
+    .tech-pill:hover {
+      transform: translateY(-8px) scale(1.05);
+      border-color: var(--accent);
+      box-shadow: 0 12px 30px rgba(0, 255, 255, 0.25);
+    }
+
+    .tech-icon {
+      font-size: 34px;
+      margin-bottom: 12px;
+      display: inline-block;
+      transition: transform 0.3s;
+    }
+    .tech-pill:hover .tech-icon {
+      transform: scale(1.2) rotate(8deg);
+    }
+    .tech-name {
+      font-weight: 700;
+      font-size: 14px;
+      color: #fff;
+    }
+    .tech-level {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-family: var(--font-code);
+      margin-top: 4px;
+    }
+
+    /* PROJECTS 3D CARDS */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 25px;
+      margin-bottom: 50px;
+    }
+
+    .project-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 22px;
+      padding: 30px;
+      backdrop-filter: blur(15px);
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .project-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--secondary);
+      box-shadow: 0 20px 45px rgba(255, 121, 198, 0.25);
+    }
+
+    .proj-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background: rgba(189, 147, 249, 0.15);
+      color: var(--primary);
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      font-family: var(--font-code);
+      margin-bottom: 15px;
+    }
+
+    .project-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .project-desc {
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .tag {
+      font-size: 11.5px;
+      padding: 4px 10px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      font-family: var(--font-code);
+    }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+      transition: gap 0.2s;
+    }
+    .project-link:hover {
+      gap: 12px;
+      color: #fff;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 50px 20px 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      color: var(--text-muted);
+      font-size: 14px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      margin-bottom: 25px;
+    }
+
+    .social-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      font-size: 20px;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .social-icon:hover {
+      transform: translateY(-6px) scale(1.1);
+      background: var(--primary);
+      color: #0b0c16;
+      border-color: var(--primary);
+      box-shadow: 0 0 25px var(--primary);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .hero-card { grid-template-columns: 1fr; padding: 35px 25px; }
+      .hero-title { font-size: 38px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- DYNAMIC ANIMATED MOUSE CURSOR -->
+  <div class="cursor-dot" id="cursor-dot"></div>
+  <div class="cursor-outline" id="cursor-outline"></div>
+
+  <!-- INTERACTIVE PARTICLES CANVAS -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- GLOW ORBS -->
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
+  <div class="glow-orb orb-3"></div>
+
+  <div class="container">
+
+    <!-- HERO SECTION -->
+    <header class="hero-card">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="pulse-dot"></span> Available For Full Stack Roles
+        </div>
+        <h1 class="hero-title">Mahesh<br/>Gomaskar</h1>
+        
+        <div class="typing-box">
+          <i class="fa-solid fa-terminal" style="font-size: 16px; margin-right: 5px;"></i>
+          <span id="typing-text"></span>
+          <span class="cursor-blink"></span>
+        </div>
+
+        <p class="hero-desc">
+          Passionate <b>Full Stack Developer</b> crafting high-performance, responsive web applications with <b>Django, JavaScript, and MySQL</b>. Turning complex backend logic into smooth, attractive user experiences.
+        </p>
+
+        <div class="cta-group">
+          <a href="mailto:gomaskarm@gmail.com" class="btn-glow btn-primary">
+            <i class="fa-solid fa-paper-plane"></i> Let's Talk
+          </a>
+          <a href="https://github.com/mahesh15ai" target="_blank" class="btn-glow btn-secondary">
+            <i class="fa-brands fa-github"></i> GitHub Profile
+          </a>
+          <a href="https://linkedin.com/in/mahesh-gomaskar-605aa8337" target="_blank" class="btn-glow btn-secondary">
+            <i class="fa-brands fa-linkedin"></i> LinkedIn
+          </a>
+        </div>
+      </div>
+
+      <!-- INTERACTIVE CODE TERMINAL -->
+      <div class="terminal-card">
+        <div class="terminal-header">
+          <span class="term-dot term-red"></span>
+          <span class="term-dot term-yellow"></span>
+          <span class="term-dot term-green"></span>
+          <span class="term-title">developer.tsx</span>
+        </div>
+        <div class="terminal-body">
+          <span class="code-var">const</span> <span class="code-prop">Developer</span> = () =&gt; {<br/>
+          &nbsp;&nbsp;<span class="code-var">const</span> [state] = <span class="code-prop">useState</span>({<br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;name: <span class="code-str">"Mahesh Gomaskar"</span>,<br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;location: <span class="code-str">"Pune, India 🇮🇳"</span>,<br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;degree: <span class="code-str">"B.Sc. Computer Science"</span>,<br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;coreStack: [<span class="code-str">"Django"</span>, <span class="code-str">"Python"</span>, <span class="code-str">"JS"</span>, <span class="code-str">"MySQL"</span>],<br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;passionateLearner: <span class="code-bool">true</span>,<br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;openForHire: <span class="code-bool">true</span><br/>
+          &nbsp;&nbsp;});<br/>
+          <br/>
+          &nbsp;&nbsp;<span class="code-comment">// 🚀 Ready to build scalable systems</span><br/>
+          &nbsp;&nbsp;<span class="code-var">return</span> &lt;<span class="code-prop">HireMe</span> {...state} /&gt;;<br/>
+          };
+        </div>
+      </div>
+    </header>
+
+    <!-- TECH ARSENAL INTERACTIVE GRID -->
+    <div class="section-title-wrap">
+      <span class="section-tag">&lt;skills &amp; tools /&gt;</span>
+      <h2 class="section-title">Technical Arsenal</h2>
+    </div>
+
+    <div class="tech-grid">
+      <div class="tech-pill">
+        <div class="tech-icon" style="color: #3776AB;"><i class="fa-brands fa-python"></i></div>
+        <div class="tech-name">Python</div>
+        <div class="tech-level">90% Expert</div>
+      </div>
+      <div class="tech-pill">
+        <div class="tech-icon" style="color: #44B78B;"><i class="fa-solid fa-cubes"></i></div>
+        <div class="tech-name">Django</div>
+        <div class="tech-level">92% Advanced</div>
+      </div>
+      <div class="tech-pill">
+        <div class="tech-icon" style="color: #F7DF1E;"><i class="fa-brands fa-js"></i></div>
+        <div class="tech-name">JavaScript</div>
+        <div class="tech-level">78% Proficient</div>
+      </div>
+      <div class="tech-pill">
+        <div class="tech-icon" style="color: #4479A1;"><i class="fa-solid fa-database"></i></div>
+        <div class="tech-name">MySQL</div>
+        <div class="tech-level">85% Solid</div>
+      </div>
+      <div class="tech-pill">
+        <div class="tech-icon" style="color: #E34F26;"><i class="fa-brands fa-html5"></i></div>
+        <div class="tech-name">HTML5</div>
+        <div class="tech-level">95% Clean UI</div>
+      </div>
+      <div class="tech-pill">
+        <div class="tech-icon" style="color: #1572B6;"><i class="fa-brands fa-css3-alt"></i></div>
+        <div class="tech-name">CSS3</div>
+        <div class="tech-level">90% Styling</div>
+      </div>
+      <div class="tech-pill">
+        <div class="tech-icon" style="color: #7952B3;"><i class="fa-brands fa-bootstrap"></i></div>
+        <div class="tech-name">Bootstrap 5</div>
+        <div class="tech-level">95% Responsive</div>
+      </div>
+      <div class="tech-pill">
+        <div class="tech-icon" style="color: #F05032;"><i class="fa-brands fa-git-alt"></i></div>
+        <div class="tech-name">Git &amp; GitHub</div>
+        <div class="tech-level">82% Daily</div>
+      </div>
+    </div>
+
+    <!-- FEATURED PROJECTS -->
+    <div class="section-title-wrap">
+      <span class="section-tag">&lt;portfolio showcase /&gt;</span>
+      <h2 class="section-title">Featured Projects</h2>
+    </div>
+
+    <div class="project-grid">
+      <div class="project-card">
+        <div>
+          <span class="proj-badge">FULL STACK PORTAL</span>
+          <h3 class="project-title">Employee Task System <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 14px; color: var(--accent);"></i></h3>
+          <p class="project-desc">Multi-user task tracker with real-time AJAX status updates, relational MySQL schema, and automated Django email notifications.</p>
+          <div class="project-tags">
+            <span class="tag">Django</span>
+            <span class="tag">MySQL</span>
+            <span class="tag">AJAX</span>
+            <span class="tag">Bootstrap 5</span>
+          </div>
+        </div>
+        <a href="https://github.com/mahesh15ai" target="_blank" class="project-link">
+          Explore Repository <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+
+      <div class="project-card">
+        <div>
+          <span class="proj-badge">CRUD &amp; AUTH</span>
+          <h3 class="project-title">Library Management <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 14px; color: var(--accent);"></i></h3>
+          <p class="project-desc">Full-featured inventory and member borrowing platform with role-based authentication (Admin/Member) and normalized SQLite schemas.</p>
+          <div class="project-tags">
+            <span class="tag">Python</span>
+            <span class="tag">Django</span>
+            <span class="tag">SQLite</span>
+            <span class="tag">Auth</span>
+          </div>
+        </div>
+        <a href="https://github.com/mahesh15ai" target="_blank" class="project-link">
+          Explore Repository <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+
+      <div class="project-card">
+        <div>
+          <span class="proj-badge">DYNAMIC CMS</span>
+          <h3 class="project-title">Blog &amp; Content Platform <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 14px; color: var(--accent);"></i></h3>
+          <p class="project-desc">Interactive blogging platform featuring TinyMCE rich editor, threaded comments, image compression via Pillow, and full-text search.</p>
+          <div class="project-tags">
+            <span class="tag">Django</span>
+            <span class="tag">Pillow</span>
+            <span class="tag">TinyMCE</span>
+            <span class="tag">Search</span>
+          </div>
+        </div>
+        <a href="https://github.com/mahesh15ai" target="_blank" class="project-link">
+          Explore Repository <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="social-links">
+      <a href="mailto:gomaskarm@gmail.com" class="social-icon" title="Email"><i class="fa-solid fa-envelope"></i></a>
+      <a href="https://linkedin.com/in/mahesh-gomaskar-605aa8337" target="_blank" class="social-icon" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+      <a href="https://github.com/mahesh15ai" target="_blank" class="social-icon" title="GitHub"><i class="fa-brands fa-github"></i></a>
+      <a href="tel:+918459734286" class="social-icon" title="Phone"><i class="fa-solid fa-phone"></i></a>
+    </div>
+    <p>Crafted with 💜 &amp; Interactive Canvas by <b>Mahesh Gomaskar</b> &bull; &copy; 2026</p>
+  </footer>
+
+  <!-- SCRIPT FOR PARTICLES & INTERACTIVE MOUSE CURSOR -->
+  <script>
+    // 1. CUSTOM MOUSE CURSOR + TRAIL EFFECT
+    const cursorDot = document.getElementById('cursor-dot');
+    const cursorOutline = document.getElementById('cursor-outline');
+    let mouseX = 0, mouseY = 0;
+    let outlineX = 0, outlineY = 0;
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursorDot.style.transform = `translate(${mouseX - 4}px, ${mouseY - 4}px)`;
+
+      // Spawn subtle particle trail
+      if (Math.random() > 0.4) {
+        const trail = document.createElement('div');
+        trail.className = 'cursor-trail';
+        trail.style.left = `${mouseX}px`;
+        trail.style.top = `${mouseY}px`;
+        document.body.appendChild(trail);
+        setTimeout(() => trail.remove(), 500);
+      }
+    });
+
+    // Smooth follow outline
+    function animateCursor() {
+      outlineX += (mouseX - outlineX) * 0.15;
+      outlineY += (mouseY - outlineY) * 0.15;
+      cursorOutline.style.left = `${outlineX}px`;
+      cursorOutline.style.top = `${outlineY}px`;
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    // Hover scale on interactive elements
+    const interactables = document.querySelectorAll('a, button, .tech-pill, .project-card, .terminal-card');
+    interactables.forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('hovered-cursor'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('hovered-cursor'));
+    });
+
+    // 2. TYPING EFFECT
+    const words = [
+      "Full Stack Developer 🚀",
+      "Django & Python Specialist 🐍",
+      "Building Scalable Web Apps 🌐",
+      "Clean Code & Modern UI ✨"
+    ];
+    let wordIdx = 0, charIdx = 0, isDeleting = false;
+    const typingSpan = document.getElementById('typing-text');
+
+    function typeLoop() {
+      const currentWord = words[wordIdx];
+      if (isDeleting) {
+        typingSpan.textContent = currentWord.substring(0, charIdx--);
+      } else {
+        typingSpan.textContent = currentWord.substring(0, charIdx++);
+      }
+
+      let speed = isDeleting ? 40 : 90;
+      if (!isDeleting && charIdx === currentWord.length + 1) {
+        speed = 1800; // Pause at full word
+        isDeleting = true;
+      } else if (isDeleting && charIdx === 0) {
+        isDeleting = false;
+        wordIdx = (wordIdx + 1) % words.length;
+        speed = 400;
+      }
+      setTimeout(typeLoop, speed);
+    }
+    typeLoop();
+
+    // 3. INTERACTIVE CONNECTED CANVAS PARTICLES (Mouse Responsive)
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.vx = (Math.random() - 0.5) * 0.8;
+        this.vy = (Math.random() - 0.5) * 0.8;
+        this.radius = Math.random() * 2 + 1;
+        this.color = Math.random() > 0.5 ? '#bd93f9' : '#00ffff';
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x < 0 || this.x > width) this.vx *= -1;
+        if (this.y < 0 || this.y > height) this.vy *= -1;
+
+        // Interaction with mouse
+        const dx = mouseX - this.x;
+        const dy = mouseY - this.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 120) {
+          this.x -= dx * 0.03;
+          this.y -= dy * 0.03;
+        }
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.shadowColor = this.color;
+        ctx.shadowBlur = 8;
+        ctx.fill();
+      }
+    }
+
+    const particles = Array.from({ length: 65 }, () => new Particle());
+
+    function renderParticles() {
+      ctx.clearRect(0, 0, width, height);
+
+      // Connect lines
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 110) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(189, 147, 249, ${0.18 * (1 - dist / 110)})`;
+            ctx.lineWidth = 0.8;
+            ctx.stroke();
+          }
+        }
+      }
+
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+
+      requestAnimationFrame(renderParticles);
+    }
+    renderParticles();
+  </script>
+</body>
+</html>

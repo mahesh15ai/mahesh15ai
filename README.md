@@ -1,3 +1,11 @@
+<div align="center">
+
+<a href="https://mahesh15ai.github.io/mahesh15ai/home.html">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=24,16,2&height=120&section=header&text=%E2%9C%A8%20Launch%20Interactive%20Animated%20Portfolio%20%E2%9C%A8&fontSize=26&fontColor=fff&animation=twinkling&desc=%F0%9F%91%89%20Click%20Here%20to%20Experience%20Live%20Mouse%20Physics%20%26%20Animations%20%F0%9F%9A%80&descSize=15&descAlignY=65" width="100%" />
+</a>
+
+</div>
+
 <!-- HEADER -->
 <img width="100%" src="https://capsule-render.vercel.app/api?type=slice&color=gradient&customColorList=24,16,2,16,24&height=260&section=header&text=Mahesh%20Gomaskar&fontSize=62&fontColor=fff&animation=fadeIn&fontAlignY=36&rotate=-6&desc=🌌%20Full%20Stack%20Developer%20%7C%20Django%20%7C%20JavaScript%20%7C%20MySQL&descSize=18&descAlignY=57&stroke=BD93F9&strokeWidth=3"/>
 
