@@ -232,9 +232,9 @@ const mahesh = {
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)"  srcset="https://raw.githubusercontent.com/mahesh15ai/mahesh15ai/output/github-contribution-grid-snake-dark.svg"/>
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/mahesh15ai/mahesh15ai/output/github-contribution-grid-snake.svg"/>
-  <img src="https://raw.githubusercontent.com/mahesh15ai/mahesh15ai/output/github-contribution-grid-snake-dark.svg" alt="Snake animation" width="100%"/>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mahesh15ai/mahesh15ai/main/dist/github-snake-dark.svg"/>
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/mahesh15ai/mahesh15ai/main/dist/github-snake.svg"/>
+  <img src="https://raw.githubusercontent.com/mahesh15ai/mahesh15ai/main/dist/github-snake-dark.svg" alt="Snake animation" width="100%"/>
 </picture>
 
 > 🐍 *Updated daily — a snake eats every contribution I make!*
@@ -253,11 +253,20 @@ const mahesh = {
 
 ---
 
-## 🏆 Trophy Cabinet
+## 🏆 Badges & Milestones
 
 <div align="center">
 
-<img src="https://github-profile-trophy.vercel.app/?username=mahesh15ai&theme=dracula&no-frame=true&no-bg=true&margin-w=8&column=7" width="100%"/>
+<img src="https://img.shields.io/badge/Pull_Shark-x2-50FA7B?style=for-the-badge&logo=github&logoColor=white&labelColor=1a1a2e" alt="Pull Shark" />&nbsp;
+<img src="https://img.shields.io/badge/Quickdraw-Achieved-BD93F9?style=for-the-badge&logo=github&logoColor=white&labelColor=1a1a2e" alt="Quickdraw" />&nbsp;
+<img src="https://img.shields.io/badge/YOLO-Merged-FF79C6?style=for-the-badge&logo=github&logoColor=white&labelColor=1a1a2e" alt="YOLO" />&nbsp;
+<img src="https://img.shields.io/badge/Pair_Extraordinaire-Active-FFB86C?style=for-the-badge&logo=github&logoColor=white&labelColor=1a1a2e" alt="Pair" />
+
+<br/><br/>
+
+<a href="https://github.com/mahesh15ai?tab=achievements">
+  <img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=700&size=15&pause=99999&color=50FA7B&center=true&vCenter=true&width=500&height=30&lines=%E2%AD%90+View+All+Official+GitHub+Achievements+%E2%AD%90" alt="GitHub Achievements" />
+</a>
 
 </div>
 
