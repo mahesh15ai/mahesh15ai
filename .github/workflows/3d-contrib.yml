@@ -4,9 +4,9 @@ on:
   schedule:
     - cron: "0 */12 * * *"  # runs every 12 hours
   workflow_dispatch:          # allows manual trigger
-  push:
-    branches:
-      - main
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -14,21 +14,13 @@ jobs:
     name: Generate 3D Contribution Graph
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Generate 3D Profile
         uses: yoshi389111/github-profile-3d-contrib@0.7.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           USERNAME: mahesh15ai
-          SETTING_JSON: |
-            {
-              "githubUserName": "mahesh15ai",
-              "type": "NORMAL",
-              "backgroundColor": "0D1117",
-              "strongColor": "#00FFFF",
-              "weakColor": "#1a3a4a"
-            }
 
       - name: Commit & Push 3D Graph
         run: |
@@ -37,4 +29,3 @@ jobs:
           git add -A .
           git commit -m "🌐 Auto-update 3D contribution graph" || echo "Nothing to commit"
           git push
-
